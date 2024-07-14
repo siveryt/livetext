@@ -1,6 +1,7 @@
 let roomcode = window.location.pathname.replace('/', '');
 
-console.log(roomcode);
+document.getElementById('roomcode').innerText = roomcode;
+
 let textarea = document.getElementById('text');
 
 const ws = new WebSocket(`ws://${window.location.host}/${roomcode}`);
