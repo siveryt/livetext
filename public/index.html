@@ -4,11 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live Text</title>
+    <link rel="stylesheet" href="bulma.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <h1>Live Text</h1>
-    <input id="roomcode">
-    <button id="submit">Join Room</button>
+<body id="index">
+    <div class="container content has-text-centered">
+
+        <h1 class="title is-size-1">Live Text</h1>
+        <p class="subtitle mb-6">Enter a room code below to join or create a room</p>
+        <div class="field has-addons">
+            <p class="control" style="width: 100%;">
+                <input
+                id="roomcode"
+                class="input is-large mx-2"
+                type="text"
+                placeholder="Enter a room code"
+                />
+            </p>
+            <p class="control">
+                <button class="button is-primary is-large" id="submit">Join Room</button>
+            </p>
+        </div>
+
+        <button class="button is-secondary" id="random">Random Room</button>
+    </div>
+        
     
     <script src="index.js"></script>
 </body>
