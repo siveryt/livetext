@@ -7,8 +7,7 @@ const WebSocket = require('ws');
 const server = http.createServer((req, res) => {
 
     if (req.url == '/') {
-        res.writeHead(302, { 'Location': `/${Math.random().toString(36).substring(2)}` });
-        res.end();
+        serve(res, path.join(__dirname, 'index.html'));
         return;
     }
 
@@ -18,7 +17,7 @@ const server = http.createServer((req, res) => {
     fs.access(filePath, fs.constants.F_OK, (err) => {
         if (err) {
             // Serve index.html if the requested path does not exist
-            serve(res, path.join(__dirname, 'index.html'));
+            serve(res, path.join(__dirname, 'editor.html'));
         } else {
             // Serve the requested file if it exists
             serve(res, filePath);
