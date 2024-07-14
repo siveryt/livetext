@@ -11,9 +11,18 @@ ws.onopen = function() {
 
 ws.onmessage = function(event) {
     console.log('received:', event.data);
-    textarea.value = event.data;
+    const payload = JSON.parse(event.data);
+
+    if (payload.text) {
+        textarea.value = payload.text
+    }
+
+    if (payload.clients) {
+        document.getElementById('clients').innerText = payload.clients;
+    }
+    
 }
 
 textarea.addEventListener('input', function() {
-    ws.send(textarea.value);
+    ws.send(JSON.stringify({text: textarea.value}));
 });

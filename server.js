@@ -57,22 +57,38 @@ wss.on('connection', function connection(ws, req) {
     rooms[ws.roomcode] = rooms[ws.roomcode] || [];
     rooms[ws.roomcode].push(ws);
 
+    rooms[ws.roomcode].forEach(client => {
+        client.send(JSON.stringify({
+            clients: rooms[ws.roomcode].length
+        }));
+    });
+
     ws.on('message', function incoming(message) {
         console.log('received: %s', message);
 
-        rooms[ws.roomcode].forEach(client => {
-            if (client !== ws) {
-                client.send(message.toString());
-            }
-        });
+        const payload = JSON.parse(message);
+
+        if (payload.text) {
+            rooms[ws.roomcode].forEach(client => {
+                if (client !== ws) {
+                    client.send(JSON.stringify({
+                        text: payload.text
+                    }));
+                }
+            });
+        }
+        
     });
 
     ws.on('close', function close() {
         console.log('Client disconnected');
 
         rooms[ws.roomcode] = rooms[ws.roomcode].filter(client => client !== ws);
+        rooms[ws.roomcode].forEach(client => {
+            client.send(JSON.stringify({
+                clients: rooms[ws.roomcode].length
+            }));
+        });
     });
 
-    // Step 6: Send a welcome message to the client
-    ws.send('Welcome to the WebSocket server!');
 });
