@@ -34,7 +34,29 @@ function serve(res, path) {
             res.writeHead(500, { 'Content-Type': 'text/plain' });
             res.end('Internal Server Error');
         } else {
-            res.writeHead(200, { 'Content-Type': 'text/html' });
+            const contentType = getContentType(path);
+            res.writeHead(200, { 'Content-Type': contentType });
+            
+            function getContentType(filePath) {
+                const extension = filePath.split('.').pop();
+                switch (extension) {
+                    case 'html':
+                        return 'text/html';
+                    case 'css':
+                        return 'text/css';
+                    case 'js':
+                        return 'text/javascript';
+                    case 'json':
+                        return 'application/json';
+                    case 'png':
+                        return 'image/png';
+                    case 'jpg':
+                    case 'jpeg':
+                        return 'image/jpeg';
+                    default:
+                        return 'application/octet-stream';
+                }
+            }
             res.end(data);
         }
     });
