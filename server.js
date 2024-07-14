@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const WebSocket = require('ws');
 
 // Create a server
 const server = http.createServer((req, res) => {
@@ -37,9 +38,41 @@ function serve(res, path) {
     });
 }
 
-
 // Start the server
 server.listen(3000, () => {
     console.log('Server is running on port 3000');
 });
 
+// Create Websocket Server
+const wss = new WebSocket.Server({ server });
+
+const rooms = {};
+
+wss.on('connection', function connection(ws, req) {
+    console.log('A new client connected');
+
+    const roomcode = req.url.replace('/', '');
+    
+    console.log('roomcode:', ws.roomcode = roomcode);
+    rooms[ws.roomcode] = rooms[ws.roomcode] || [];
+    rooms[ws.roomcode].push(ws);
+
+    ws.on('message', function incoming(message) {
+        console.log('received: %s', message);
+
+        rooms[ws.roomcode].forEach(client => {
+            if (client !== ws) {
+                client.send(message.toString());
+            }
+        });
+    });
+
+    ws.on('close', function close() {
+        console.log('Client disconnected');
+
+        rooms[ws.roomcode] = rooms[ws.roomcode].filter(client => client !== ws);
+    });
+
+    // Step 6: Send a welcome message to the client
+    ws.send('Welcome to the WebSocket server!');
+});
