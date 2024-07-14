@@ -7,17 +7,17 @@ const WebSocket = require('ws');
 const server = http.createServer((req, res) => {
 
     if (req.url == '/') {
-        serve(res, path.join(__dirname, 'index.html'));
+        serve(res, path.join(__dirname, 'public', 'index.html'));
         return;
     }
 
     // Check if the requested path exists
-    const filePath = path.join(__dirname, req.url);
+    const filePath = path.join(__dirname, 'public', req.url);
 
     fs.access(filePath, fs.constants.F_OK, (err) => {
         if (err) {
             // Serve index.html if the requested path does not exist
-            serve(res, path.join(__dirname, 'editor.html'));
+            serve(res, path.join(__dirname, 'public', 'editor.html'));
         } else {
             // Serve the requested file if it exists
             serve(res, filePath);
