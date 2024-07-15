@@ -1,13 +1,13 @@
 body {
-    margin: 2rem;
+    margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    height: 100dvh;
+
 }
 
 #index {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100dvh;
     flex-flow: row wrap;
 }

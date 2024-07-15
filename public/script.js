@@ -20,6 +20,9 @@ ws.onmessage = function(event) {
 
     if (payload.clients) {
         document.getElementById('clients').innerText = payload.clients;
+        
+        document.getElementById("pluralclients").innerText = payload.clients != 1 ? "s" : "";
+        
     }
     
 }

@@ -4,13 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live Text</title>
+    <link rel="stylesheet" href="style.css" >
+    <link rel="stylesheet" href="bulma.min.css">
 </head>
 <body>
-    <h1>Live Text</h1>
-    <span id="roomcode"></span>
-    <span id="clients"></span>
-    <p>Enter some text below:</p>
-    <textarea name="text" id="text" cols="30" rows="10"></textarea>
+    <div class="container pt-5 " style="height: 100%;">
+
+        <h1 class="title">Live Text</h1>
+        <p>Roomcode: <b id="roomcode"></b></p>
+        <p>There are <b id="clients">X</b> client<span id="pluralclients"></span> connected to this room</p>
+        <textarea
+        name="text"
+        id="text"
+        class="textarea"
+        style="height: 100%;"
+        ></textarea>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
