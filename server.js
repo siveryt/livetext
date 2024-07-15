@@ -73,9 +73,9 @@ const wss = new WebSocket.Server({ server });
 const rooms = {};
 
 wss.on('connection', function connection(ws, req) {
-    console.log('A new client connected');
-
+    
     const roomcode = req.url.replace('/', '').toLowerCase();
+    console.log('A new client connected to room', roomcode);
     
     console.log('roomcode:', ws.roomcode = roomcode);
     rooms[ws.roomcode] = rooms[ws.roomcode] || [];
@@ -88,7 +88,6 @@ wss.on('connection', function connection(ws, req) {
     });
 
     ws.on('message', function incoming(message) {
-        console.log('received: %s', message);
 
         const payload = JSON.parse(message);
 

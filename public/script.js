@@ -11,7 +11,6 @@ ws.onopen = function() {
 }
 
 ws.onmessage = function(event) {
-    console.log('received:', event.data);
     const payload = JSON.parse(event.data);
 
     if (payload.text) {
