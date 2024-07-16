@@ -8,11 +8,22 @@ const statusElement = document.getElementById('serverstatus');
 
 const https = document.location.protocol === 'https:';
 
-function connect() {
+function connect(tryCount = 0) {
+
+    if (tryCount > 60) {
+        console.log('Failed to connect to server after 5 minutes');
+        statusElement.innerText = 'No Connection';
+        statusElement.classList.remove('is-success');
+        statusElement.classList.add('is-danger');
+        return;
+    }
+
+    console.log(`Connection attempt ${tryCount}`);
 
     const ws = new WebSocket(`ws${https ? 's' : ''}://${window.location.host}/${roomcode}`);
 
     ws.onopen = function() {
+        tryCount = 0;
         console.log('Connected to server');
         statusElement.innerText = 'Connected to Server';
         statusElement.classList.remove('is-danger');
@@ -37,13 +48,13 @@ function connect() {
 
     ws.onclose = function() {
         console.log('Disconnected from server, trying again in 5 seconds');
-        statusElement.innerText = 'No Connection';
+        statusElement.innerText = 'No Connection, trying again';
         statusElement.classList.remove('is-success');
-        statusElement.classList.add('is-danger');
+        statusElement.classList.add('is-warning');
 
         textarea.removeEventListener('input', sendText);
 
-        setTimeout(connect, 5000);
+        setTimeout(() => connect(tryCount + 1), 5000);
     }
 
     textarea.addEventListener('input', sendText);
