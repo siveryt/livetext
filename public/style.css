@@ -11,3 +11,10 @@ body {
     align-items: center;
     flex-flow: row wrap;
 }
+
+#serverstatus {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 2rem;
+}
