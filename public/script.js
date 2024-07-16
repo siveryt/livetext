@@ -7,38 +7,50 @@ let textarea = document.getElementById('text');
 const statusElement = document.getElementById('serverstatus');
 
 const https = document.location.protocol === 'https:';
-const ws = new WebSocket(`ws${https ? 's' : ''}://${window.location.host}/${roomcode}`);
 
-ws.onopen = function() {
-    console.log('Connected to server');
-    statusElement.innerText = 'Connected to Server';
-    statusElement.classList.remove('is-danger');
-    statusElement.classList.add('is-success');
-}
+function connect() {
 
-ws.onmessage = function(event) {
-    const payload = JSON.parse(event.data);
+    const ws = new WebSocket(`ws${https ? 's' : ''}://${window.location.host}/${roomcode}`);
 
-    if (payload.text) {
-        textarea.value = payload.text
+    ws.onopen = function() {
+        console.log('Connected to server');
+        statusElement.innerText = 'Connected to Server';
+        statusElement.classList.remove('is-danger');
+        statusElement.classList.add('is-success');
     }
 
-    if (payload.clients) {
-        document.getElementById('clients').innerText = payload.clients;
-        
-        document.getElementById("pluralclients").innerText = payload.clients != 1 ? "s" : "";
+    ws.onmessage = function(event) {
+        const payload = JSON.parse(event.data);
+
+        if (payload.text) {
+            textarea.value = payload.text
+        }
+
+        if (payload.clients) {
+            document.getElementById('clients').innerText = payload.clients;
+            
+            document.getElementById("pluralclients").innerText = payload.clients != 1 ? "s" : "";
+            
+        }
         
     }
-    
+
+    ws.onclose = function() {
+        console.log('Disconnected from server, trying again in 5 seconds');
+        statusElement.innerText = 'No Connection';
+        statusElement.classList.remove('is-success');
+        statusElement.classList.add('is-danger');
+
+        textarea.removeEventListener('input', sendText);
+
+        setTimeout(connect, 5000);
+    }
+
+    textarea.addEventListener('input', sendText);
+
+    function sendText() {
+        ws.send(JSON.stringify({text: textarea.value}));
+    }
 }
 
-ws.onclose = function() {
-    console.log('Disconnected from server');
-    statusElement.innerText = 'No Connection';
-    statusElement.classList.remove('is-success');
-    statusElement.classList.add('is-danger');
-}
-
-textarea.addEventListener('input', function() {
-    ws.send(JSON.stringify({text: textarea.value}));
-});
+connect();
