@@ -87,6 +87,10 @@ wss.on('connection', function connection(ws, req) {
         }));
     });
 
+    rooms[ws.roomcode][0].send(JSON.stringify({
+        sendProgress: true
+    }));
+
     ws.on('message', function incoming(message) {
 
         const payload = JSON.parse(message);

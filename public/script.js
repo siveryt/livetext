@@ -43,6 +43,10 @@ function connect(tryCount = 0) {
             document.getElementById("pluralclients").innerText = payload.clients != 1 ? "s" : "";
             
         }
+
+        if (payload.sendProgress) {
+            ws.send(JSON.stringify({text: textarea.value}));
+        }
         
     }
 
