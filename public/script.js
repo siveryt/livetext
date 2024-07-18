@@ -1,6 +1,6 @@
 let roomcode = window.location.pathname.replace('/', '');
 
-document.getElementById('roomcode').innerText = roomcode;
+document.getElementById('roomcode').innerText = roomcode.toUpperCase();
 
 let textarea = document.getElementById('text');
 
@@ -26,7 +26,7 @@ function connect(tryCount = 0) {
         tryCount = 0;
         console.log('Connected to server');
         statusElement.innerText = 'Connected to Server';
-        statusElement.classList.remove('is-danger');
+        statusElement.classList.remove('is-danger', 'is-warning');
         statusElement.classList.add('is-success');
     }
 
