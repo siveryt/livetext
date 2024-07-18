@@ -74,10 +74,9 @@ const rooms = {};
 
 wss.on('connection', function connection(ws, req) {
     
-    const roomcode = req.url.replace('/', '').toLowerCase();
-    console.log('A new client connected to room', roomcode);
+    ws.roomcode = req.url.replace('/', '').toLowerCase();
+    console.log('A new client connected to room', ws.roomcode);
     
-    console.log('roomcode:', ws.roomcode = roomcode);
     rooms[ws.roomcode] = rooms[ws.roomcode] || [];
     rooms[ws.roomcode].push(ws);
 
