@@ -36,7 +36,7 @@ function connect(tryCount = 0) {
         tryCount = 0;
         console.log('Connected to server');
         statusElement.innerText = 'Connected to Server';
-        statusElement.classList.remove('is-danger');
+        statusElement.classList.remove('is-danger', 'is-warning');
         statusElement.classList.add('is-success');
     }
 
