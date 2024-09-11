@@ -18,7 +18,7 @@ const statusElement = document.getElementById('serverstatus');
 
 const https = document.location.protocol === 'https:';
 
-if (!https) {
+if (https) {
     document.getElementById('https_notice').style.display = 'block';
 }
 
