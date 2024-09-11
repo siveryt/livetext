@@ -12,6 +12,9 @@ document.getElementById('random').addEventListener('click', function() {
 
 function joinRoomEvent() {
     let roomcode = document.getElementById('roomcode').value;
+    if (roomcode.length === 0) {
+        roomcode = Math.random().toString(36).substring(7);
+    }
     window.location = `${window.location.origin}/${roomcode}`;
 }
 
