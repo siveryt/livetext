@@ -1,6 +1,16 @@
-let roomcode = window.location.pathname.replace('/', '');
+let roomcode = window.location.pathname.replace('/', '').toUpperCase();
 
 document.getElementById('roomcode').innerText = roomcode.toUpperCase();
+document.getElementById('roomcode_container').addEventListener('click', () => {
+    navigator.clipboard.writeText(roomcode);
+    document.getElementById('roomcode').innerText = 'Copied!';
+    setTimeout(() => {
+        document.getElementById('roomcode').innerText = roomcode.toUpperCase();
+    }
+    , 1000);
+}
+);
+
 
 let textarea = document.getElementById('text');
 

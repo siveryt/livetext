@@ -18,3 +18,7 @@ html, body {
     right: 0;
     margin: 2rem;
 }
+
+.container {
+    margin: 1rem;
+}

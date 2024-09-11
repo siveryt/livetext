@@ -8,15 +8,15 @@
     <link rel="stylesheet" href="bulma.min.css">
 </head>
 <body>
-    <div class="container pt-5 " style="height: 100%;">
+    <div class="container p-4 is-fullheight is-fullwidth is-centered" style="height: 100%;">
 
         <h1 class="title">Live Text</h1>
-        <p>Roomcode: <b id="roomcode"></b></p>
+        <p id="roomcode_container">Roomcode: <b id="roomcode"></b></p>
         <p>There are <b id="clients">X</b> client<span id="pluralclients"></span> connected to this room</p>
         <textarea
         name="text"
         id="text"
-        class="textarea"
+        class="textarea mr-2"
         style="height: 100%;"
         ></textarea>
     </div>
