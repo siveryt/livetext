@@ -22,3 +22,7 @@ html, body {
 .container {
     margin: 1rem;
 }
+
+#https_notice {
+    display: none;
+}

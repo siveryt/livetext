@@ -18,6 +18,10 @@ const statusElement = document.getElementById('serverstatus');
 
 const https = document.location.protocol === 'https:';
 
+if (!https) {
+    document.getElementById('https_notice').style.display = 'block';
+}
+
 function connect(tryCount = 0) {
 
     if (tryCount > 60) {
