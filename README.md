@@ -3,6 +3,9 @@
 ## About
 LiveText is an open-source, self-hostable web application for creating temporary rooms in which you can exchange text data. Data is never stored on the server and nothing is saved permanently.
 
+![Main Screenshot](.github/screenshots/main.png)
+
+
 ## Installation
 
 ### Using Docker
